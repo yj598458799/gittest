@@ -5,4 +5,4 @@ master line 4
 user1 dev 第一次修改
 user1 dev 第二次修改
 user1 mater 第三次修改 <==> user1 dev add line7
-user1 mater add line7
+user1 mater mod line8 <==> user1 dev add line8
