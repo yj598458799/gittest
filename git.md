@@ -91,6 +91,6 @@ git push origin  :refs/tags/v1.0
 - github 设置ssh公钥
 - 测试连通性：ssh -T git@github.com
 - github建立仓库
-- 本地项目-远程项目关联：git remote add origin git@github.com:yj598458799/mygit.git
-
+- 本地项目-远程项目关联：git remote add origin git@github.com:yj598458799/mygit.git （本地先执行git init）
+- 将本地仓库关联到Github流程(先在服务器创建一个空仓库，再将本地仓库按照空仓库的提示推送即可)
 
