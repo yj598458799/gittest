@@ -102,6 +102,7 @@
 
 - git branch -d name 删除name 分支
 - git branch -D name 强制删除name 分支
+- git push --delete origin <branch_name> 删除远程分支
 
 ### 合并 
 
