@@ -45,9 +45,9 @@
   - -a/--all 对所有文件进行贮藏
 - git stash list 查看所有贮藏内容
 - git stash apply --index 应用贮藏(--index表示暂存区也恢复) 后面可以指定第几个stash@{n} 或直接加 n 如果不指定表示默认最近
-- git stash drop --index 引用贮藏并从贮藏记录列表中删除 后面可以指定第几个stash@{n} 或直接加 n 如果不指定表示默认最近
+- git stash drop --index 应用贮藏并从贮藏记录列表中删除 后面可以指定第几个stash@{n} 或直接加 n 如果不指定表示默认最近
 - git stash clear 批量删除
-- git stash pop 将贮藏区内容恢复到工作区
+- git stash pop 将贮藏区内容恢复到工作区，并删除贮藏区
 - git stash branch <new_branch> 从贮藏区重新创建一个分支
   
 ### 标签
