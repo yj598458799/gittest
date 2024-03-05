@@ -18,36 +18,53 @@
 - git log --pretty=oneline 显示一行
 - git log --pretty=format:"%h - %an ,%ar : %s" 格式化输出
 - git reflog 显示所有操作记录
-- git 
+
 ### 撤销
 
 - git reset --hard commit_id 回滚版本
 - git reset head~ 撤销本次提交，工作区变为本次提交的修改
 - git reset HEAD file 将暂存区修改撤销,不影响工作区的修改
-- git checkout file/. 将工作区修改撤销掉
+- git checkout . 将工作区修改撤销掉
 
-### 暂存
+### 清理工作区
 
-- git stash 将工作区修改内容保存到贮藏区
+- git clean [-d] [-f] [-i] [-n] [-q] [-x] [-e *.txt]
+  - -n 不要删除任何内容，只显示将要删除的内容或者--dry。
+  - -f 强行删除文件，会忽略.gitignore文件。
+  - -d 同时删除目录。
+  - -x还要考虑被忽略的未跟踪文件.gitignore。
+  - -i 交互式地显示将要被删除的文件和目录(会列出文件并提示选择哪种方式)。
+  - -q 静默模式
+    
+### 贮藏
+
+- git stash [-u] [-S] [-a] [-m "stashMessage"] 或git stash push 将工作区修改内容保存到贮藏区
+  - -u/--include-untracked 对为跟踪的文件也进行贮藏
+  - -S/--staged 只对暂存区文件进行贮藏
+  - -m 加上自定义信息
+  - -a/--all 对所有文件进行贮藏
+- git stash list 查看所有贮藏内容
+- git stash apply --index 应用贮藏(--index表示暂存区也恢复) 后面可以指定第几个stash@{n} 或直接加 n 如果不指定表示默认最近
+- git stash drop --index 引用贮藏并从贮藏记录列表中删除 后面可以指定第几个stash@{n} 或直接加 n 如果不指定表示默认最近
+- git stash clear 批量删除
 - git stash pop 将贮藏区内容恢复到工作区
-- git tag 列出代码库中所有的tag
-- git tag -a <版本号> -m message 新增一个版本号
-
+- git stash branch <new_branch> 从贮藏区重新创建一个分支
+  
 ### 标签
 
+- git tag 列出代码库中所有的tag
+- git tag -a <版本号> -m message 新增一个版本号
 - git tag v1.0   简单标签，只存储当前的commit的sha1值
 - git tag -a v2.0 -m "我的v.2.0版本"   （创建一个新对象，会产生一个新的commit/sha1）存储信息，其中包含了当前的commit的sha1值
 - git push origin v1.0 v2.0 推送标签 
 - git push origin --tags
 - git push origin v1.0
 - 完整 git push origin refs/tags/v1.0:refs/tags/v1.0
-
 - 远程新增标签
-git pull  :如果远端新增标签，则pull 可以将新增的标签拉去到本地；如果远程是删除标签，则pull无法感知
-git fetch orgin tag v4.0
-
+  - git pull  :如果远端新增标签，则pull 可以将新增的标签拉去到本地；如果远程是删除标签，则pull无法感知
+  - git fetch orgin tag v4.0
 - 删除远程标签
-git push origin  :refs/tags/v1.0
+  - git push origin  :refs/tags/v1.0
 
 注意：如果将远程标签删除，其他用户无法直接感知 
 
@@ -64,17 +81,35 @@ git push origin  :refs/tags/v1.0
 - git branch -a 列出本地所有分支
 - git switch -c name 创建一个新的name的分支
 - git switch name 切换分支
+- git checkout name 切换分支，不会撤销本地修改
+- git branch -m oldname newname 本地分支重命名
+
+### 查看分支
+
+- git branch 查看本地分支
+- git branch -v 查看本地分支 + 提交记录的哈希值 + 提交记录
+- git branch -vv 查看本地分支 + 提交记录的哈希值 + 上游分支 + 提交记录
 
 ### 创建跟踪分支
 
-- git checkout --track origin/name  创建一个name的跟踪分支
+- git checkout --track origin/name  创建一个name的跟踪分支 如果不指定
 - git checkout name 切换分支，如果刚好只有一个名字与之匹配的远程分支会自动创建跟踪分支
 - git checkout -b name origin/name 切换分支，创建一个自定义名称的跟踪分支
 - git branch -u origin/name 修改正在跟踪的上游分支
-- git merge name 将name分支和当前分支合并
-- git branch -d name 删除name 分支
-- git branch -vv 查看设置的所有跟踪分支
 
+
+### 删除分支  
+
+- git branch -d name 删除name 分支
+- git branch -D name 强制删除name 分支
+
+### 合并 
+
+- git merge name 将name分支和当前分支合并
+- git merge --abort 取消合并
+- git cherry-pick commit_id 摘取某个提交合并到当前分支
+- git rebase tobranch 变基 
+  
 ## 远程操作
 
 - git clone 项目url path 从远程库下周整个代码库和历史记录，path为本地仓库名
